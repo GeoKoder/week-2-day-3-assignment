@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>My Shopping List</h1>
+        <p><span id="remain-count">0</span> items Remaining</p>
+        <div class="input-fields">
+            <label for="item-name">Item Name:</label>
+            <input type="text" name="item-name" id="item-name">
+
+            <label for="quantity">Quantity:</label>
+            <input type="text" name="quantity" id="quantity" value="1">
+            
+            <button type="submit" id="submit-btn">Add Items</button>
+        </div>
+        <div class="shopping-list" id="shopping-list"></div>
+        <p id="error-message"></p>
+    </div>
+    
+    <script src="shopping-list.js"></script>
+</body>
+</html>
