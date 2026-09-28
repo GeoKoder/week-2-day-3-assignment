@@ -1,0 +1,512 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap');
+
+/* ==========================================================================
+   Global Reset & Base Variables
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Color Palette */
+  --bg-primary: #f8fafc;
+  --bg-surface: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --border-focus: #6366f1;
+
+  /* Brand Accents */
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+  --primary-glow: rgba(79, 70, 229, 0.28);
+
+  /* Shadows */
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 10px 25px -5px rgba(15, 23, 42, 0.07), 0 20px 48px -10px rgba(15, 23, 42, 0.05);
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(16px, 4vw, 32px) clamp(12px, 3vw, 20px);
+  padding-top: max(clamp(16px, 4vw, 32px), env(safe-area-inset-top));
+  padding-bottom: max(clamp(16px, 4vw, 32px), env(safe-area-inset-bottom));
+  font-family: var(--font-main);
+  color: var(--text-primary);
+  background-color: #f1f5f9;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(14, 165, 233, 0.12) 0px, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(241, 245, 249, 0.6) 0px, transparent 100%);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ==========================================================================
+   Shared Typography & Container
+   ========================================================================== */
+h1 {
+  font-size: clamp(1.35rem, 5vw, 1.65rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: 6px;
+  letter-spacing: -0.025em;
+}
+
+p {
+  color: var(--text-muted);
+  font-size: clamp(0.85rem, 2.5vw, 0.925rem);
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.counter-h1 {
+  margin-bottom: 6px;
+}
+
+.container {
+  width: 100%;
+  max-width: min(440px, 100%);
+  background: var(--bg-surface);
+  border-radius: clamp(16px, 4vw, 22px);
+  box-shadow: var(--card-shadow);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  padding: clamp(18px, 5vw, 28px);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Common Primary Submit Buttons */
+.submit-btn,
+#submit-btn {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  background: var(--primary-gradient);
+  color: #ffffff;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px var(--primary-glow);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+
+.submit-btn:hover:not(:disabled),
+#submit-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #4338ca 0%, #4f46e5 100%);
+  box-shadow: 0 6px 18px rgba(79, 70, 229, 0.38);
+  transform: translateY(-1px);
+}
+
+.submit-btn:active:not(:disabled),
+#submit-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px var(--primary-glow);
+}
+
+.submit-btn:disabled,
+#submit-btn:disabled {
+  background: #cbd5e1;
+  color: #94a3b8;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+  opacity: 0.7;
+}
+
+/* ==========================================================================
+   1. Calculator Page Styles (Responsive Grid & Display)
+   ========================================================================== */
+.container:has(.buttons) {
+  max-width: min(350px, 100%);
+  padding: clamp(14px, 4vw, 22px);
+}
+
+.display-area {
+  margin-bottom: 12px;
+}
+
+#display {
+  width: 100%;
+  height: clamp(60px, 14vw, 72px);
+  background: #0f172a;
+  color: #f8fafc;
+  border-radius: clamp(10px, 2.5vw, 14px);
+  border: none;
+  font-family: var(--font-mono);
+  font-size: clamp(1.6rem, 6.5vw, 2.1rem);
+  font-weight: 600;
+  text-align: right;
+  padding: 0 clamp(12px, 3vw, 18px);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.45);
+  letter-spacing: 0.02em;
+  outline: none;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: clamp(48px, 13vw, 56px);
+  gap: clamp(6px, 2vw, 10px);
+}
+
+.buttons button {
+  width: 100%;
+  height: 100%;
+  border-radius: clamp(10px, 2.5vw, 12px);
+  font-size: clamp(1.05rem, 3.8vw, 1.25rem);
+  font-weight: 600;
+  font-family: inherit;
+  border: 1px solid var(--border-color);
+  background: #f8fafc;
+  color: #334155;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  user-select: none;
+}
+
+.buttons button:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+}
+
+.buttons button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+/* Operator Buttons */
+.buttons button[onclick*="inputOperator"] {
+  background: #eff6ff;
+  color: #2563eb;
+  border-color: #bfdbfe;
+  font-weight: 700;
+}
+
+.buttons button[onclick*="inputOperator"]:hover {
+  background: #dbeafe;
+  border-color: #93c5fd;
+  color: #1d4ed8;
+}
+
+/* Clear Button */
+.buttons button[onclick*="clearDisplay"] {
+  background: #fef2f2;
+  color: #dc2626;
+  border-color: #fecaca;
+  font-weight: 700;
+}
+
+.buttons button[onclick*="clearDisplay"]:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #b91c1c;
+}
+
+/* Plus Button (Spans 2 rows) */
+.buttons button.plus {
+  grid-row: span 2;
+  height: 100%;
+}
+
+/* Equals Button (Spans 2 rows) */
+.buttons button.equals {
+  grid-row: span 2;
+  height: 100%;
+  background: var(--primary-gradient);
+  color: #ffffff;
+  border: none;
+  font-size: clamp(1.2rem, 4vw, 1.4rem);
+  font-weight: 700;
+  box-shadow: 0 4px 14px var(--primary-glow);
+}
+
+.buttons button.equals:hover {
+  background: linear-gradient(135deg, #4338ca 0%, #4f46e5 100%);
+  box-shadow: 0 6px 18px rgba(79, 70, 229, 0.42);
+  transform: translateY(-2px);
+}
+
+.buttons button.equals:active {
+  transform: translateY(0);
+}
+
+/* Zero Button (Spans 2 columns) */
+.buttons button.zero {
+  grid-column: span 2;
+  width: 100%;
+}
+
+/* ==========================================================================
+   2. Character Counter Page Styles
+   ========================================================================== */
+textarea#thoughts {
+  width: 100%;
+  min-height: clamp(120px, 22vh, 150px);
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1.5px solid var(--border-color);
+  font-family: inherit;
+  font-size: 16px; /* Prevents auto-zoom on iOS */
+  line-height: 1.55;
+  color: var(--text-primary);
+  background: #f8fafc;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  resize: vertical;
+  outline: none;
+  display: block;
+}
+
+textarea#thoughts:focus {
+  background: #ffffff;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
+}
+
+textarea#thoughts::placeholder {
+  color: #94a3b8;
+}
+
+.character-disp {
+  display: flex;
+  justify-content: flex-end;
+  margin: 10px 0 18px 0;
+}
+
+.character-disp p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+#charCount {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: -0.01em;
+  transition: color 0.15s ease;
+}
+
+/* ==========================================================================
+   3. Shopping List Page Styles
+   ========================================================================== */
+#remain-count {
+  display: inline-block;
+  background: #eef2ff;
+  color: var(--primary);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 2px 9px;
+  border-radius: 20px;
+  border: 1px solid #c7d2fe;
+}
+
+.input-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.input-fields label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 6px;
+}
+
+.input-fields input[type="text"] {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border-color);
+  font-family: inherit;
+  font-size: 16px; /* Prevents auto-zoom on iOS */
+  color: var(--text-primary);
+  background: #f8fafc;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  outline: none;
+}
+
+.input-fields input[type="text"]:focus {
+  background: #ffffff;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+}
+
+.input-fields button#submit-btn {
+  margin-top: 10px;
+}
+
+/* Shopping List Output Items */
+.shopping-list {
+  margin-top: 16px;
+}
+
+.shopping-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.shopping-list li {
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  font-size: 0.925rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  word-break: break-word;
+  transition: all 0.2s ease;
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.shopping-list li:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+/* Action Buttons inside Shopping List li */
+.shopping-list li button.btn {
+  flex-shrink: 0;
+  min-height: 36px;
+  padding: 6px 13px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.825rem;
+  font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: all 0.15s ease;
+  outline: none;
+}
+
+/* Bought Button (first button in li) */
+.shopping-list li button.btn:first-of-type {
+  margin-left: auto;
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+.shopping-list li button.btn:first-of-type:hover {
+  background: #d1fae5;
+  border-color: #6ee7b7;
+}
+
+/* Delete Button (second button in li) */
+.shopping-list li button.btn:last-of-type {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.shopping-list li button.btn:last-of-type:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+}
+
+/* Error message */
+#error-message {
+  color: #ef4444;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 10px 0 0 0;
+  min-height: 20px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   Media Queries for Ultra-Compact Screens & Landscape Orientations
+   ========================================================================== */
+@media (max-width: 380px) {
+  .container {
+    padding: 16px 14px;
+    border-radius: 16px;
+  }
+
+  .buttons {
+    grid-auto-rows: 46px;
+    gap: 6px;
+  }
+
+  .shopping-list li {
+    justify-content: flex-end;
+  }
+
+  .shopping-list li button.btn {
+    flex: 1;
+    text-align: center;
+  }
+}
+
+/* Mobile Landscape & Short Viewports: Prevents cutting off content */
+@media (max-height: 640px) and (orientation: landscape) {
+  body {
+    justify-content: flex-start;
+    padding-top: 16px;
+    padding-bottom: 24px;
+  }
+
+  textarea#thoughts {
+    min-height: 90px;
+  }
+
+  .display-area {
+    margin-bottom: 8px;
+  }
+
+  .buttons {
+    grid-auto-rows: 44px;
+  }
+}
